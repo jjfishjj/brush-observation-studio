@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f2">
+  <meta name="description" content="在自己的裝置上練習觀察刷牙死角。此互動示範以模擬標記呈現，不提供醫療診斷。">
+  <title>齒間日常｜刷牙觀察室</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='20' fill='%231b5b4b'/%3E%3Cpath d='M19 18c-5 3-4 13-1 20 3 8 4 15 8 15 5 0 3-12 7-12s3 12 8 12c4 0 5-7 8-15 3-7 4-17-1-20-6-4-11 1-15 1s-8-5-14-1Z' fill='%23f5f7f2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="齒間日常首頁">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40"><path d="M11.8 9.7c-4.2 2.3-3.4 9.8-1 15.8 2.2 5.7 2.7 11.2 6 11.2 3.7 0 2.4-9.2 5.5-9.2s1.8 9.2 5.5 9.2c3.3 0 3.8-5.5 6-11.2 2.4-6 3.2-13.5-1-15.8-4.6-2.5-7.7.9-10.5.9s-5.9-3.4-10.5-.9Z"/></svg>
+        </span>
+        <span class="brand-copy"><strong>齒間日常</strong><small>BRUSHING STUDIO</small></span>
+      </a>
+      <nav class="top-links" aria-label="主要導覽">
+        <a class="active" href="#scanner">開始觀察</a>
+        <a href="#report">清潔報告</a>
+        <a href="#guide">使用小提醒</a>
+      </nav>
+      <div class="privacy-pill"><span class="privacy-dot"></span>影像留在你的裝置</div>
+    </header>
+
+    <main id="top">
+      <section class="intro-row">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> A GENTLER WAY TO BRUSH</div>
+          <h1>找出每一個<br><em>容易忽略的角落。</em></h1>
+          <p class="intro-copy">用一點點觀察，讓每天的清潔更有方向。對準鏡頭，看看哪些區域值得多停留幾秒。</p>
+        </div>
+        <div class="today-card">
+          <span class="sun-icon" aria-hidden="true">✳</span>
+          <div><small>今天也從一個好習慣開始</small><strong>刷得仔細，不必刷得用力。</strong></div>
+        </div>
+      </section>
+
+      <section class="workspace-grid" id="scanner" aria-label="牙齒清潔觀察工作區">
+        <article class="scan-card">
+          <div class="scan-card-head">
+            <div><span class="section-kicker">01 / LIVE VIEW</span><h2>刷牙觀察室</h2></div>
+            <span class="demo-tag"><span></span>互動示範</span>
+          </div>
+          <div class="camera-stage" id="cameraStage">
+            <video id="cameraVideo" autoplay playsinline muted aria-label="本機鏡頭預覽"></video>
+            <canvas id="captureCanvas" hidden></canvas>
+            <div class="camera-placeholder" id="cameraPlaceholder">
+              <div class="placeholder-art" aria-hidden="true">
+                <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+                <svg viewBox="0 0 220 180" class="smile-illustration">
+                  <path class="face" d="M48 20c-10 12-18 36-18 65 0 42 32 72 80 72s80-30 80-72c0-29-8-53-18-65"/>
+                  <path class="smile-line" d="M66 91c7 23 22 37 44 37s37-14 44-37"/>
+                  <path class="teeth" d="M73 92c10 5 22 7 37 7s27-2 37-7c-7 18-19 28-37 28S80 110 73 92Z"/>
+                  <circle cx="72" cy="72" r="3" class="sparkle-dot"/><circle cx="148" cy="72" r="3" class="sparkle-dot"/>
+                  <path class="sparkle" d="M28 52v12m-6-6h12M178 40v12m-6-6h12M183 119v9m-5-4h10"/>
+                </svg>
+                <span class="placeholder-caption">放鬆微笑，對準引導框</span>
+                <div class="guide-oval"><span>請將牙齒放在框線中央</span></div>
+              </div>
+            </div>
+            <div class="camera-overlay" id="cameraOverlay" aria-hidden="true">
+              <div class="guide-frame"><span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span><span class="guide-label">ALIGN YOUR SMILE</span></div>
+              <div class="scan-line"></div>
+              <div class="overlay-point point-a"><i></i>易漏刷</div><div class="overlay-point point-b"><i></i>示範熱點</div>
+              <div class="live-indicator"><span></span>本機預覽</div>
+            </div>
+            <div class="scan-success" id="scanSuccess" role="status" aria-live="polite"><span class="success-check">✓</span><span>示範觀察完成</span></div>
+            <div class="camera-message" id="cameraMessage" role="status"></div>
+            <span class="stage-caption">模擬標記，並非影像辨識</span>
+          </div>
+          <div class="scan-controls">
+            <div class="scan-hint"><span class="hint-icon">i</span><span id="cameraHint">可先開啟鏡頭，或直接體驗示範掃描</span></div>
+            <div class="control-buttons">
+              <button class="button button-quiet" id="cameraButton" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h3l1.5-2h7l1.5 2h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.3"/></svg><span>開啟鏡頭</span></button>
+              <button class="button button-primary" id="scanButton" type="button"><span class="button-spark">✳</span><span>開始示範掃描</span><span class="button-arrow">→</span></button>
+            </div>
+          </div>
+          <div class="local-note"><span class="lock-icon" aria-hidden="true">⌑</span><span>鏡頭畫面僅供本機預覽，不會上傳。按下示範掃描後，會顯示預設的互動結果。</span></div>
+        </article>
+
+        <aside class="side-column">
+          <article class="score-card" id="report">
+            <div class="side-card-head"><span class="section-kicker">YOUR ROUTINE</span><span class="round-icon" aria-hidden="true">↗</span></div>
+            <div class="score-main">
+              <div><span class="score-label">本次清潔觀察分數</span><div class="score-value"><span id="scoreValue">78</span><small>/100</small></div></div>
+              <div class="score-ring" id="scoreRing" aria-label="示範清潔觀察分數 78 分"><svg viewBox="0 0 74 74"><circle class="ring-bg" cx="37" cy="37" r="31"/><circle class="ring-value" id="ringCircle" cx="37" cy="37" r="31"/></svg><span>DEMO</span></div>
+            </div>
+            <div class="score-meter"><span id="scoreMeter" style="width:78%"></span></div>
+            <p class="score-advice" id="scoreAdvice">整體不錯！記得讓牙刷多停留在後排牙齒的內側。</p>
+            <div class="metric-row"><div><span class="metric-number" id="hotspotCount">3</span><span class="metric-label">示範熱點</span></div><div><span class="metric-number" id="scanCount">01</span><span class="metric-label">本次觀察</span></div><div><span class="metric-number">2 min</span><span class="metric-label">建議刷牙時間</span></div></div>
+          </article>
+
+          <article class="hotspot-card">
+            <div class="side-card-head"><div><span class="section-kicker">AREAS TO REVISIT</span><h3>容易忽略的區域</h3></div><span class="hotspot-total">3 SPOTS</span></div>
+            <div class="hotspot-list" id="hotspotList">
+              <button class="hotspot-item selected" data-tooth="15" type="button"><span class="spot-index">01</span><span class="spot-info"><strong>右下後排咬合面</strong><small>可多停留幾秒</small></span><span class="spot-level"><strong>74%</strong><i><b style="width:74%"></b></i></span></button>
+              <button class="hotspot-item" data-tooth="4" type="button"><span class="spot-index">02</span><span class="spot-info"><strong>上排門牙內側</strong><small>記得由牙齦往外刷</small></span><span class="spot-level"><strong>61%</strong><i><b style="width:61%"></b></i></span></button>
+              <button class="hotspot-item" data-tooth="0" type="button"><span class="spot-index">03</span><span class="spot-info"><strong>左上臼齒外側</strong><small>可用小幅度輕刷</small></span><span class="spot-level"><strong>53%</strong><i><b style="width:53%"></b></i></span></button>
+            </div>
+          </article>
+        </aside>
+      </section>
+
+      <section class="lower-grid" id="guide">
+        <article class="teeth-card">
+          <div class="lower-head"><div><span class="section-kicker">02 / TOOTH MAP</span><h2>齒列區域圖</h2><p>點選牙齒，查看示範觀察提示。</p></div><div class="map-legend"><span><i class="legend-good"></i>較仔細</span><span><i class="legend-attention"></i>可再留意</span></div></div>
+          <div class="mouth-map-wrap">
+            <div class="map-label top-label"><span>上排</span><i></i></div>
+            <div id="upperArch" class="tooth-arch upper-arch" aria-label="上排牙齒區域圖"></div>
+            <div class="arch-divider"><span>咬合線</span></div>
+            <div id="lowerArch" class="tooth-arch lower-arch" aria-label="下排牙齒區域圖"></div>
+            <div class="map-label bottom-label"><span>下排</span><i></i></div>
+          </div>
+          <div class="tooth-detail" id="toothDetail"><span class="detail-dot"></span><span id="toothDetailText">已選取：右下後排咬合面・示範提醒：刷毛輕放，分區慢慢刷。</span><span class="detail-arrow">↗</span></div>
+        </article>
+
+        <article class="guide-card">
+          <div class="guide-card-top"><span class="section-kicker">A SMALL REMINDER</span><span class="guide-sun">✳</span></div>
+          <h2>清潔，從<br><em>溫柔開始。</em></h2>
+          <p>將牙齒分區，每次刷兩到三顆。刷毛輕靠牙齦邊緣，以小幅度來回清潔，別忘了內側與咬合面。</p>
+          <div class="guide-divider"></div>
+          <div class="guide-tip"><span>01</span><strong>使用軟毛牙刷</strong></div>
+          <div class="guide-tip"><span>02</span><strong>每天清潔牙縫</strong></div>
+          <div class="guide-footer">若牙齦持續出血或不適，請諮詢牙醫師。</div>
+        </article>
+      </section>
+
+      <section class="privacy-banner" id="privacy-banner">
+        <div class="privacy-banner-icon" aria-hidden="true">✳</div>
+        <div><strong>這是一個互動示範，不是醫療檢查。</strong><span>目前的分數與熱點為預設模擬資料，未使用 AI 分析影像；不能判斷牙菌斑或取代牙醫師診斷。若有口腔疑慮，請尋求牙醫專業協助。</span></div>
+        <a href="#scanner">回到觀察室 <span>↑</span></a>
+      </section>
+    </main>
+    <footer><span>© <span id="year"></span> 齒間日常・刷牙觀察室</span><span>DESIGNED FOR EVERYDAY CARE <i>✳</i></span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
