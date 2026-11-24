@@ -4,10 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f5f7f2">
-  <meta name="description" content="在自己的裝置上練習觀察刷牙死角。此互動示範以模擬標記呈現，不提供醫療診斷。">
+  <meta name="description" content="本機鏡頭預覽與 AIRC-LABDEN 公開標註資料參考；不分析個人影像，也不提供醫療診斷。">
   <title>齒間日常｜刷牙觀察室</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='20' fill='%231b5b4b'/%3E%3Cpath d='M19 18c-5 3-4 13-1 20 3 8 4 15 8 15 5 0 3-12 7-12s3 12 8 12c4 0 5-7 8-15 3-7 4-17-1-20-6-4-11 1-15 1s-8-5-14-1Z' fill='%23f5f7f2'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles-reference.css">
 </head>
 <body>
   <div class="app-shell">
@@ -19,35 +20,35 @@
         <span class="brand-copy"><strong>齒間日常</strong><small>BRUSHING STUDIO</small></span>
       </a>
       <nav class="top-links" aria-label="主要導覽">
-        <a class="active" href="#scanner">開始觀察</a>
-        <a href="#report">清潔報告</a>
-        <a href="#guide">使用小提醒</a>
+        <a class="active" href="#scanner">本機預覽</a>
+        <a href="#label-audit">TXT核對</a>
+        <a href="#dataset-reference">資料對比</a>
+        <a href="#guide">使用提醒</a>
       </nav>
-      <div class="privacy-pill"><span class="privacy-dot"></span>影像留在你的裝置</div>
+      <div class="privacy-pill"><span class="privacy-dot"></span>不分析、不上傳影像</div>
     </header>
 
     <main id="top">
       <section class="intro-row">
         <div>
           <div class="eyebrow"><span class="eyebrow-line"></span> A GENTLER WAY TO BRUSH</div>
-          <h1>找出每一個<br><em>容易忽略的角落。</em></h1>
-          <p class="intro-copy">用一點點觀察，讓每天的清潔更有方向。對準鏡頭，看看哪些區域值得多停留幾秒。</p>
+          <h1>看清資料，<br><em>不假裝看見你的牙齒。</em></h1>
+          <p class="intro-copy">鏡頭僅供本機預覽；目前原型不會辨識口腔影像。下方比較的是 AIRC-LABDEN 公開資料集的原始標註分布，不能當成個人檢查結果。</p>
         </div>
         <div class="today-card">
           <span class="sun-icon" aria-hidden="true">✳</span>
-          <div><small>今天也從一個好習慣開始</small><strong>刷得仔細，不必刷得用力。</strong></div>
+          <div><small>公開資料參考，不是個人判斷</small><strong>保留原始標籤，避免過度解讀。</strong></div>
         </div>
       </section>
 
-      <section class="workspace-grid" id="scanner" aria-label="牙齒清潔觀察工作區">
+      <section class="workspace-grid" id="scanner" aria-label="本機鏡頭預覽與公開資料參考">
         <article class="scan-card">
           <div class="scan-card-head">
-            <div><span class="section-kicker">01 / LIVE VIEW</span><h2>刷牙觀察室</h2></div>
-            <span class="demo-tag"><span></span>互動示範</span>
+            <div><span class="section-kicker">01 / LOCAL PREVIEW</span><h2>本機鏡頭預覽</h2></div>
+            <span class="demo-tag"><span></span>不做影像辨識</span>
           </div>
           <div class="camera-stage" id="cameraStage">
-            <video id="cameraVideo" autoplay playsinline muted aria-label="本機鏡頭預覽"></video>
-            <canvas id="captureCanvas" hidden></canvas>
+            <video id="cameraVideo" autoplay playsinline muted aria-label="僅在本機顯示的鏡頭預覽"></video>
             <div class="camera-placeholder" id="cameraPlaceholder">
               <div class="placeholder-art" aria-hidden="true">
                 <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
@@ -58,64 +59,104 @@
                   <circle cx="72" cy="72" r="3" class="sparkle-dot"/><circle cx="148" cy="72" r="3" class="sparkle-dot"/>
                   <path class="sparkle" d="M28 52v12m-6-6h12M178 40v12m-6-6h12M183 119v9m-5-4h10"/>
                 </svg>
-                <span class="placeholder-caption">放鬆微笑，對準引導框</span>
-                <div class="guide-oval"><span>請將牙齒放在框線中央</span></div>
+                <span class="placeholder-caption">LOCAL PREVIEW ONLY</span>
+                <div class="guide-oval"><span>此框只作構圖參考</span></div>
               </div>
             </div>
             <div class="camera-overlay" id="cameraOverlay" aria-hidden="true">
-              <div class="guide-frame"><span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span><span class="guide-label">ALIGN YOUR SMILE</span></div>
-              <div class="scan-line"></div>
-              <div class="overlay-point point-a"><i></i>易漏刷</div><div class="overlay-point point-b"><i></i>示範熱點</div>
+              <div class="guide-frame"><span class="corner c1"></span><span class="corner c2"></span><span class="corner c3"></span><span class="corner c4"></span><span class="guide-label">LOCAL PREVIEW ONLY</span></div>
               <div class="live-indicator"><span></span>本機預覽</div>
             </div>
-            <div class="scan-success" id="scanSuccess" role="status" aria-live="polite"><span class="success-check">✓</span><span>示範觀察完成</span></div>
-            <div class="camera-message" id="cameraMessage" role="status"></div>
-            <span class="stage-caption">模擬標記，並非影像辨識</span>
+            <div class="camera-message" id="cameraMessage" role="status" aria-live="polite"></div>
+            <span class="stage-caption">沒有辨識或診斷結果</span>
           </div>
           <div class="scan-controls">
-            <div class="scan-hint"><span class="hint-icon">i</span><span id="cameraHint">可先開啟鏡頭，或直接體驗示範掃描</span></div>
+            <div class="scan-hint"><span class="hint-icon">i</span><span id="cameraHint">可選擇開啟本機鏡頭；影像不會送出或分析</span></div>
             <div class="control-buttons">
-              <button class="button button-quiet" id="cameraButton" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h3l1.5-2h7l1.5 2h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.3"/></svg><span>開啟鏡頭</span></button>
-              <button class="button button-primary" id="scanButton" type="button"><span class="button-spark">✳</span><span>開始示範掃描</span><span class="button-arrow">→</span></button>
+              <button class="button button-quiet" id="cameraButton" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h3l1.5-2h7l1.5 2h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.3"/></svg><span>開啟鏡頭</span></button>
+              <a class="button button-primary" href="#dataset-reference"><span class="button-spark">✳</span><span>查看資料集對比</span><span class="button-arrow">→</span></a>
             </div>
           </div>
-          <div class="local-note"><span class="lock-icon" aria-hidden="true">⌑</span><span>鏡頭畫面僅供本機預覽，不會上傳。按下示範掃描後，會顯示預設的互動結果。</span></div>
+          <div class="local-note"><span class="lock-icon" aria-hidden="true">⌑</span><span>鏡頭僅在你的裝置預覽；本頁沒有牙菌斑偵測模型，也不會上傳影像。</span></div>
         </article>
 
         <aside class="side-column">
-          <article class="score-card" id="report">
-            <div class="side-card-head"><span class="section-kicker">YOUR ROUTINE</span><span class="round-icon" aria-hidden="true">↗</span></div>
-            <div class="score-main">
-              <div><span class="score-label">本次清潔觀察分數</span><div class="score-value"><span id="scoreValue">78</span><small>/100</small></div></div>
-              <div class="score-ring" id="scoreRing" aria-label="示範清潔觀察分數 78 分"><svg viewBox="0 0 74 74"><circle class="ring-bg" cx="37" cy="37" r="31"/><circle class="ring-value" id="ringCircle" cx="37" cy="37" r="31"/></svg><span>DEMO</span></div>
+          <article class="dataset-card" id="dataset-reference">
+            <div class="side-card-head dataset-title-row">
+              <div><span class="section-kicker">02 / PUBLIC DATA</span><h2>公開資料集對比</h2></div>
+              <span class="reference-tag">原圖標註</span>
             </div>
-            <div class="score-meter"><span id="scoreMeter" style="width:78%"></span></div>
-            <p class="score-advice" id="scoreAdvice">整體不錯！記得讓牙刷多停留在後排牙齒的內側。</p>
-            <div class="metric-row"><div><span class="metric-number" id="hotspotCount">3</span><span class="metric-label">示範熱點</span></div><div><span class="metric-number" id="scanCount">01</span><span class="metric-label">本次觀察</span></div><div><span class="metric-number">2 min</span><span class="metric-label">建議刷牙時間</span></div></div>
-          </article>
-
-          <article class="hotspot-card">
-            <div class="side-card-head"><div><span class="section-kicker">AREAS TO REVISIT</span><h3>容易忽略的區域</h3></div><span class="hotspot-total">3 SPOTS</span></div>
-            <div class="hotspot-list" id="hotspotList">
-              <button class="hotspot-item selected" data-tooth="15" type="button"><span class="spot-index">01</span><span class="spot-info"><strong>右下後排咬合面</strong><small>可多停留幾秒</small></span><span class="spot-level"><strong>74%</strong><i><b style="width:74%"></b></i></span></button>
-              <button class="hotspot-item" data-tooth="4" type="button"><span class="spot-index">02</span><span class="spot-info"><strong>上排門牙內側</strong><small>記得由牙齦往外刷</small></span><span class="spot-level"><strong>61%</strong><i><b style="width:61%"></b></i></span></button>
-              <button class="hotspot-item" data-tooth="0" type="button"><span class="spot-index">03</span><span class="spot-info"><strong>左上臼齒外側</strong><small>可用小幅度輕刷</small></span><span class="spot-level"><strong>53%</strong><i><b style="width:53%"></b></i></span></button>
+            <p class="dataset-intro">Part 1 與 Part 2 僅統計未加增強或雜訊後綴的原始影像；數字是標註框，不是模型效能。</p>
+            <div id="datasetStatus" class="dataset-status" role="status" aria-live="polite">正在載入本機資料摘要…</div>
+            <div class="parts-comparison">
+              <section class="part-card" id="part1Card" aria-labelledby="part1Title">
+                <div class="part-heading"><h3 id="part1Title">Part 1</h3><span class="part-source">Mendeley Data</span></div>
+                <div class="part-key-stats"><div><strong id="part1Images">—</strong><span>原圖數</span></div><div><strong id="part1Labels">—</strong><span>標註框</span></div></div>
+                <div class="class-breakdown" id="part1Classes" aria-label="Part 1 原始 class 分布"></div>
+                <div class="split-summary" id="part1Splits"></div>
+              </section>
+              <section class="part-card" id="part2Card" aria-labelledby="part2Title">
+                <div class="part-heading"><h3 id="part2Title">Part 2</h3><span class="part-source">Mendeley Data</span></div>
+                <div class="part-key-stats"><div><strong id="part2Images">—</strong><span>原圖數</span></div><div><strong id="part2Labels">—</strong><span>標註框</span></div></div>
+                <div class="class-breakdown" id="part2Classes" aria-label="Part 2 原始 class 分布"></div>
+                <div class="split-summary" id="part2Splits"></div>
+              </section>
             </div>
+            <div class="data-method-note" id="dataMethodNote">標註格式：class ID、正規化中心座標與寬高、內部牙位 ID。資料來源對 class 語義的文字描述不一致，因此此頁保留原始類別值，不推論為嚴重度或個人風險。</div>
+            <div class="comparison-delta" id="comparisonDelta" aria-live="polite">
+              <span class="delta-heading">Part 1 與 Part 2 的資料量差異</span>
+              <span class="delta-values">資料摘要載入後顯示</span>
+              <small>這是標註數量的比較，不是偵測準確率。</small>
+            </div>
+            <div class="dataset-citation">來源：<a href="https://data.mendeley.com/datasets/g8yhdvgjy2/3" target="_blank" rel="noopener noreferrer">Part 1</a> · <a href="https://data.mendeley.com/datasets/xjs4bfgzj5/3" target="_blank" rel="noopener noreferrer">Part 2</a> · CC BY 4.0</div>
           </article>
         </aside>
       </section>
 
+      <section class="audit-card" id="label-audit" aria-labelledby="auditTitle">
+        <div class="audit-heading">
+          <div><span class="section-kicker">03 / TXT LABEL AUDIT</span><h2 id="auditTitle">TXT 欄位與框座標核對</h2></div>
+          <span class="audit-verified"><span></span>抽樣 TXT + 配對原圖覆核</span>
+        </div>
+        <p class="audit-intro">以下呈現一筆實際標註列的欄位解讀，以及兩部分資料的格式檢查摘要；原始 class ID 保留，不賦予未確認的臨床意義。</p>
+        <div class="audit-grid">
+          <div class="sample-panel">
+            <div class="sample-panel-head"><strong id="samplePart">Part 1 抽樣 TXT 列</strong><span>六欄原始順序</span></div>
+            <code class="annotation-sample" id="annotationSample">1 0.475080 0.647476 0.053686 0.115144 14</code>
+            <div class="field-parse" id="annotationFields" aria-label="範例列欄位解讀"></div>
+          </div>
+          <div class="validation-panel">
+            <h3>核對結果</h3>
+            <ul id="labelValidation" class="validation-list">
+              <li>TXT 為六欄格式；中心點與寬高採 0–1 正規化值。</li>
+              <li>配對原圖上的框位置已抽樣目視核對。</li>
+              <li>兩部分的內部牙位 mapping 相同；ID 21 是 brace。</li>
+              <li>兩部分病患皆未跨 train／validation／test 集合。</li>
+            </ul>
+            <div class="coordinate-formula"><strong>框座標換算</strong><code>x_min = center_x − width / 2</code><code>x_max = center_x + width / 2</code><code>y_min = center_y − height / 2</code><code>y_max = center_y + height / 2</code><span>以原圖寬高換算像素；兩部分的抽查標註框皆未超出影像邊界。</span></div>
+          </div>
+        </div>
+        <p class="audit-footnote">這些檢查能降低欄位錯讀與框位置錯位，不能單獨證明模型更準確。真實偵測效能需先訓練模型，再以未參與訓練的病患級測試資料評估。</p>
+      </section>
+
       <section class="lower-grid" id="guide">
         <article class="teeth-card">
-          <div class="lower-head"><div><span class="section-kicker">02 / TOOTH MAP</span><h2>齒列區域圖</h2><p>點選牙齒，查看示範觀察提示。</p></div><div class="map-legend"><span><i class="legend-good"></i>較仔細</span><span><i class="legend-attention"></i>可再留意</span></div></div>
+          <div class="lower-head">
+            <div><span class="section-kicker">04 / FDI TOOTH MAP</span><h2>20 顆牙位資料參考</h2><p>依資料集內部 ID 對照 FDI 牙位；選一顆牙查看兩部分的標註框數。</p></div>
+            <span class="map-label-note">畫面左側 → 畫面右側</span>
+          </div>
           <div class="mouth-map-wrap">
             <div class="map-label top-label"><span>上排</span><i></i></div>
-            <div id="upperArch" class="tooth-arch upper-arch" aria-label="上排牙齒區域圖"></div>
+            <div id="upperArch" class="tooth-arch upper-arch" aria-label="上排 10 顆牙齒，按畫面方向排列"></div>
             <div class="arch-divider"><span>咬合線</span></div>
-            <div id="lowerArch" class="tooth-arch lower-arch" aria-label="下排牙齒區域圖"></div>
+            <div id="lowerArch" class="tooth-arch lower-arch" aria-label="下排 10 顆牙齒，按畫面方向排列"></div>
             <div class="map-label bottom-label"><span>下排</span><i></i></div>
           </div>
-          <div class="tooth-detail" id="toothDetail"><span class="detail-dot"></span><span id="toothDetailText">已選取：右下後排咬合面・示範提醒：刷毛輕放，分區慢慢刷。</span><span class="detail-arrow">↗</span></div>
+          <div class="tooth-detail" id="toothDetail" aria-live="polite">
+            <div class="tooth-detail-heading"><span class="detail-dot"></span><strong id="toothDetailTitle">選取牙位</strong><span id="toothDetailNote">原始標註框統計</span></div>
+            <div class="tooth-part-comparison" id="toothPartComparison"></div>
+            <p class="tooth-detail-footnote">這是跨影像重複出現的區域標註框數，不代表個人牙齒狀況或唯一牙齒數。</p>
+          </div>
         </article>
 
         <article class="guide-card">
@@ -131,13 +172,14 @@
 
       <section class="privacy-banner" id="privacy-banner">
         <div class="privacy-banner-icon" aria-hidden="true">✳</div>
-        <div><strong>這是一個互動示範，不是醫療檢查。</strong><span>目前的分數與熱點為預設模擬資料，未使用 AI 分析影像；不能判斷牙菌斑或取代牙醫師診斷。若有口腔疑慮，請尋求牙醫專業協助。</span></div>
-        <a href="#scanner">回到觀察室 <span>↑</span></a>
+        <div><strong>這是資料集標註參考，不是 AI 檢查。</strong><span>本原型尚未訓練或執行牙菌斑模型；公開資料的 class 分布不能預測個人狀況，也不能取代牙醫師診斷。若要衡量偵測準確度，需訓練模型並在未參與訓練的病患級測試集評估；目前沒有此效能數據。若有口腔疑慮，請尋求牙醫專業協助。</span></div>
+        <a href="#scanner">回到頁首 <span>↑</span></a>
       </section>
     </main>
-    <footer><span>© <span id="year"></span> 齒間日常・刷牙觀察室</span><span>DESIGNED FOR EVERYDAY CARE <i>✳</i></span></footer>
+    <footer><span>© <span id="year"></span> 齒間日常・刷牙觀察室</span><span>資料：AIRC-LABDEN · CC BY 4.0 <i>✳</i></span></footer>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="data/dataset-summary.js" defer></script>
   <script src="app.js" defer></script>
 </body>
 </html>
